@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:17:14 by ebennamr          #+#    #+#             */
-/*   Updated: 2022/11/09 19:47:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:35:06 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,42 @@ size_t ft_strlen( char *str)
 		len++;
 	return (len);
 }
-char *ft_substr(char const *s, unsigned int start, size_t len)
+char	*get_line(char **src)
 {
-	size_t j;
+	int j;
+	int i;
 	char *p;
+	char *temp;
+	temp = *src;
+	i = 0;
+	j = get_newline_pos(*src);
 
-	if (!s)
-		return (NULL);
-	if (len <= ft_strlen(s + start))
-		p = (char *)(malloc(len + 1));
-	else
-		p = (char *)(malloc(ft_strlen(s + start) + 1));
-	j = 0;
-	if (!p || !s)
-	{
-		return (0);
-	}
-	while (s[start] && j < len && start < ft_strlen(s))
-	{
-		p[j] = s[start];
-		j++;
-		start++;
-	}
-	p[j] = '\0';
-	return (p);
+	if (j < 0)
+		return (*src);
+	p = malloc(j + 2);
+
+	if (!p)
+		return (free(*src),free(temp),NULL);
+
+while (i < j + 1)
+{
+	p[i] = temp[i];
+	i++;
 }
+p[i] = '\0';
+
+*src = malloc(ft_strlen(temp + j + 1) + 1);
+if(!*src)
+return (free(temp),free(p),NULL);
+i = 0;
+while (temp[j + i + 1])
+{
+(*src)[i] = temp[j + i + 1];
+i++;
+}
+(*src)[i] = '\0';
+return (free(temp),p);
+
+return NULL;
+}
+

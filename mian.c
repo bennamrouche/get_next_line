@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   mian.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 12:07:06 by ebennamr          #+#    #+#             */
-/*   Updated: 2022/11/11 20:27:44 by ebennamr         ###   ########.fr       */
+/*   Created: 2022/11/09 18:31:50 by ebennamr          #+#    #+#             */
+/*   Updated: 2022/11/11 19:01:12 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <stdlib.h>
-# include <unistd.h>
-//# include <stdio.h> //##
-//# define BUFFER_SIZE 1 //##
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include "get_next_line.h"
 
-void	strjoin(char **line, char *buff);
-char	*get_next_line(int fd);
-int		get_newline_pos(char *str);
-size_t	ft_strlen(char *str);
-char  *get_line(char **src);
-#endif
+int	main(void)
+{
+
+
+int fd = open("test.txt",O_RDWR | O_CREAT,777);
+printf("fd := %d",fd);
+if (fd < 0)
+	return (0);
+
+char *line;
+line = get_next_line(fd) ;
+while (line)
+{
+printf("line:%s\n", (line=get_next_line(fd)));
+
+}
+}
